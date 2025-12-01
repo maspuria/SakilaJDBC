@@ -16,12 +16,21 @@ public class App {
         // the statement is tied to the open connection
         Statement statement = connection.createStatement();
         // define your query
-        String query = "SELECT Name FROM city " +
-                        "WHERE CountryCode = 'USA'";
+        String query = "SELECT city FROM city " ;
+
         // 2. Execute your query
         ResultSet results = statement.executeQuery(query);
 
-        System.out.println(results);
+//        System.out.println(results);
+
+        // process the results
+        while (results.next()) {
+            String city = results.getString("city");
+            System.out.println(city);
+        }
+
+        // 3. Close the connection
+        connection.close();
 
     }
 }
