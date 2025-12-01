@@ -1,8 +1,6 @@
 package com.pluralsight;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class App {
 
@@ -14,6 +12,16 @@ public class App {
         // 1. open a connection to the database
         Connection connection = DriverManager.getConnection(url,username,password);
 
+        // create statement
+        // the statement is tied to the open connection
+        Statement statement = connection.createStatement();
+        // define your query
+        String query = "SELECT Name FROM city " +
+                        "WHERE CountryCode = 'USA'";
+        // 2. Execute your query
+        ResultSet results = statement.executeQuery(query);
+
+        System.out.println(results);
 
     }
 }
