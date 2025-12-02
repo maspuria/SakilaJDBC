@@ -18,7 +18,7 @@ public class App {
         // define your query
         String query = """
                         SELECT title, description, release_year, length
-                        FROM film 
+                        FROM film;
                         """ ;
 
         // 2. Execute your query
