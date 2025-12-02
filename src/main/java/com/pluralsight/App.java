@@ -6,8 +6,8 @@ public class App {
 
     public static void main(String[] args) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/sakila";
-        String username = "root";
-        String password = "yearup";
+        String username = args [0];
+        String password = args [1];
 
         // 1. open a connection to the database
         Connection connection = DriverManager.getConnection(url,username,password);
@@ -16,7 +16,10 @@ public class App {
         // the statement is tied to the open connection
         Statement statement = connection.createStatement();
         // define your query
-        String query = "SELECT city FROM city " ;
+        String query = """
+                        SELECT title, description, release_year, length
+                        FROM film 
+                        """ ;
 
         // 2. Execute your query
         ResultSet results = statement.executeQuery(query);
@@ -25,8 +28,15 @@ public class App {
 
         // process the results
         while (results.next()) {
-            String city = results.getString("city");
-            System.out.println(city);
+            String title = results.getString("title");
+            String description = results.getString("description");
+            int releaseYear = results.getInt("release_year");
+            int length = results.getInt("length");
+            System.out.println(title);
+            System.out.println("Release Year: " + releaseYear);
+            System.out.println(length + " minutes");
+            System.out.println(description);
+            System.out.println("-----------------------------------");
         }
 
         // 3. Close the connection
