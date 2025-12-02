@@ -12,17 +12,17 @@ public class App {
         // 1. open a connection to the database
         Connection connection = DriverManager.getConnection(url,username,password);
 
-        // create statement
-        // the statement is tied to the open connection
-        Statement statement = connection.createStatement();
         // define your query
         String query = """
                         SELECT title, description, release_year, length
                         FROM film;
                         """ ;
+        // create statement
+        // the statement is tied to the open connection
+        PreparedStatement statement = connection.prepareStatement(query);
 
         // 2. Execute your query
-        ResultSet results = statement.executeQuery(query);
+        ResultSet results = statement.executeQuery();
 
 //        System.out.println(results);
 
@@ -40,6 +40,8 @@ public class App {
         }
 
         // 3. Close the connection
+        results.close();
+        statement.close();
         connection.close();
 
     }
